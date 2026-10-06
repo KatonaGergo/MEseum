@@ -15,5 +15,18 @@
   <div id="cross">+</div>
   <div id="info" hidden><b id="iTitle"></b><p id="iText"></p></div>
 </div>
+<div id="pause">
+  <h1 id="team"></h1>
+  <h2>MEseum</h2>
+  <label>Múzeum
+    <select id="ownerSel"></select>
+  </label>
+  <label>Időtempó: 1 óra = <span id="spV">60</span> mp
+    <input id="speed" type="range" min="1" max="120" value="60">
+  </label>
+  <p>WASD mozgás · Shift futás · Egér nézelődés · 1/2/3 múzeumváltás · +/- idő gyorsítása · Esc szünet</p>
+  <button id="go">Kattints a belépéshez</button>
+</div>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
