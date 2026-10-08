@@ -9,3 +9,7 @@ A böngésző ES modulokat `file://`-ról nem tölt be, ezért helyi szerver kel
 
     python3 -m http.server 8000
     # majd: http://localhost:8000
+
+## Irányítás
+WASD mozgás · Shift futás · egér nézelődés · Esc szünet menü (múzeum-választó, időtempó csúszka) · 1/2/3 múzeumváltás · +/- idő gyorsítása/lassítása.
+Alapérték: 1 perc = 1 óra (a csúszkán 1–120 mp/óra).
