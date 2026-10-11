@@ -29,4 +29,44 @@ function wall(x1, z1, x2, z2, color) {
   box(w + 0.12, 0.25, d + 0.12, cx, WH - 0.125, cz, GOLD);   // aranyozott párkány felül
   addCollider(cx, cz, w, d);
 }
-
+// Felirattábla (canvas-ra rajzolt szöveg), rotY = merre néz.
+function sign(text, width, x, y, z, rotY) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, 256, 64);
+  ctx.fillStyle = '#e8222a'; ctx.font = 'bold 44px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(text, 128, 48);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(width, width / 4), new THREE.MeshBasicMaterial({ map: texture }));
+  m.position.set(x, y, z);
+  m.rotation.y = rotY;
+  world.add(m);
+}
+// Csillár: arany gyűrű, rúd és 6 izzó.
+function chandelier(x, z, r) {
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(r, 0.05, 6, 16), mat(GOLD));
+  ring.rotation.x = Math.PI / 2;
+  ring.position.set(x, WH - 1.2, z);
+  world.add(ring);
+  box(0.06, 1.2, 0.06, x, WH - 0.6, z, GOLD);
+  for (let i = 0; i < 6; i++) {
+    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.1, 6, 4), new THREE.MeshBasicMaterial({ color: 0xfff2b0 }));
+    bulb.position.set(x + Math.cos(i * 1.047) * r, WH - 1.1, z + Math.sin(i * 1.047) * r);
+    world.add(bulb);
+  }
+}
+// Sakktábla-padló: 2x2 pixeles képet ismételünk.
+function checkerFloor() {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 2;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#efe6d2'; ctx.fillRect(0, 0, 2, 2);
+  ctx.fillStyle = '#5a4a3a'; ctx.fillRect(0, 0, 1, 1); ctx.fillRect(1, 1, 1, 1);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.magFilter = THREE.NearestFilter;
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(10, 10);
+  return new THREE.MeshLambertMaterial({ map: texture });
+}
