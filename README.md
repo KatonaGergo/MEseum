@@ -13,3 +13,15 @@ A böngésző ES modulokat `file://`-ról nem tölt be, ezért helyi szerver kel
 ## Irányítás
 WASD mozgás · Shift futás · egér nézelődés · Esc szünet menü (múzeum-választó, időtempó csúszka) · 1/2/3 múzeumváltás · +/- idő gyorsítása/lassítása.
 Alapérték: 1 perc = 1 óra (a csúszkán 1–120 mp/óra).
+
+## Tartalom szerkesztése
+Mindenki a `js/data.js`-ben a saját blokkját tölti ki (`intro`, `past`, `hobby`, `future`, `gift`). Egy szobába 1–6 tárgy fér el.
+Modellek (`shape`): ball, book, piano, dumbbell, rope, monitor, cap, flask, cube. A csapatnév a `TEAM_NAME` konstansban van.
+
+## Szerepkör- és feladatmátrix
+| Fájl / feladat | Szerepkör | Felelős |
+| --- | --- | --- |
+| `js/main.js` (mozgás, napszak, kiállítás, főciklus), `js/museum.js` (épület, szobák, kültér), `js/models.js` (tárgyak) | Lead Developer | Tóth Péter |
+| `index.html`, `css/style.css` (HUD, szünet menü, info panel), tesztelés | UI/UX + QA | Katona Gergő |
+| `docs/`, Trello, stakeholder-térkép, `README.md` | Scrum Master | Gál Péter |
+| `js/data.js` | mindenki a saját blokkjáért | |
