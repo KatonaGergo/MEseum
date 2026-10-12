@@ -70,3 +70,33 @@ function checkerFloor() {
   texture.repeat.set(10, 10);
   return new THREE.MeshLambertMaterial({ map: texture });
 }
+
+// ---- A szobák adatai ----
+// at/step: hová kerül a tárgysor közepe, és milyen irányban követik egymást a tárgyak.
+// door: az ajtónyílás feletti áthidaló (pontosan akkora, mint a nyílás). roof: a tető közepe és mérete.
+// Szabály: két elem ne fedje egymást! Ha igen, a közös felületek villognak (z-fighting).
+// door: sign: a felirat helye [x, z, forgatás].
+const P = Math.PI / 2;
+export const ROOMS = [
+  { key: 'hobby', label: 'HOBBY', x: 0, z: -16, w: 12, d: 12, wallColor: 0xc9a46e, floorColor: 0x6b4a2a,
+    walls: [[-6, -10.2, -6, -22], [6, -10.2, 6, -22], [-6, -22, 6, -22]],
+    door: [0, -10, 3.6, T], roof: [0, -16.2, 12.4, 12], sign: [0, -9.78, 0], at: [0, -19], step: [1.7, 0] },
+  { key: 'future', label: 'FUTURE', x: 16, z: 0, w: 12, d: 12, wallColor: 0x8fa6b3, floorColor: 0x4a5a6b,
+    walls: [[10.2, -6, 22, -6], [10.2, 6, 22, 6], [22, -6, 22, 6]],
+    door: [10, 0, T, 3.6], roof: [16.2, 0, 12, 12.4], sign: [9.78, 0, -P], at: [19, 0], step: [0, 1.7] },
+  { key: 'gift', label: 'GIFT', x: 0, z: 16, w: 12, d: 12, wallColor: 0xa85c5c, floorColor: 0x5a2a2a,
+    walls: [[-6, 10.2, -6, 22], [6, 10.2, 6, 22], [-6, 22, 6, 22]],
+    door: [0, 10, 3.6, T], roof: [0, 16.2, 12.4, 12], sign: [0, 9.78, 2 * P], at: [0, 19], step: [1.7, 0] },
+  { key: 'past', label: 'PAST', x: -16, z: 0, w: 12, d: 12, wallColor: 0x86a07a, floorColor: 0x4a5a3a,
+    walls: [[-10.2, -6, -22, -6], [-10.2, 6, -22, 6], [-22, -6, -22, 6]],
+    door: [-10, 0, T, 3.6], roof: [-16.2, 0, 12, 12.4], sign: [-9.78, 0, P], at: [-19, 0], step: [0, 1.7] },
+];
+
+// A csarnok falai. A déli falban (z=10) két nyílás van: a GIFT szoba ajtaja és a bejárat (x 6.5 és 9.5 között).
+const HALL_WALLS = [
+  [-10, -10, -2, -10], [2, -10, 10, -10],   // északi fal (HOBBY ajtó)
+  [10, -10, 10, -2], [10, 2, 10, 10],       // keleti fal (FUTURE ajtó)
+  [-10, 10, -2, 10], [2, 10, 6.5, 10], [9.5, 10, 10, 10],  // déli fal (GIFT ajtó + bejárat)
+  [-10, -10, -10, -2], [-10, 2, -10, 10],   // nyugati fal (PAST ajtó)
+];
+const TREES = [[-20, 30], [-12, 40], [-30, 15], [30, 28], [24, 40], [38, 12], [-36, -10], [-30, -30], [0, -40], [30, -30], [40, -8], [-8, 28], [20, 26]];
