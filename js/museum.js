@@ -100,3 +100,18 @@ const HALL_WALLS = [
   [-10, -10, -10, -2], [-10, 2, -10, 10],   // nyugati fal (PAST ajtó)
 ];
 const TREES = [[-20, 30], [-12, 40], [-30, 15], [30, 28], [24, 40], [38, 12], [-36, -10], [-30, -30], [0, -40], [30, -30], [40, -8], [-8, 28], [20, 26]];
+
+// ---- Az egész világ felépítése ----
+export function buildMuseum() {
+  // Kültér: fű, kövezett út a bejárathoz, fák
+  box(300, 0.2, 300, 0, -0.15, 0, 0x5a8f4e);
+  box(3, 0.05, 40, 8, 0.02, 30, 0xb8b2a6);
+  TREES.forEach(([x, z]) => {
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.3, 2, 6), mat(0x6b4a2a));
+    trunk.position.set(x, 1, z);
+    const top = new THREE.Mesh(new THREE.ConeGeometry(1.6, 4, 6), mat(0x2f6f3a));
+    top.position.set(x, 4, z);
+    world.add(trunk, top);
+    addCollider(x, z, 0.8, 0.8);
+  });
+}
