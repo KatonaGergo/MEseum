@@ -142,4 +142,21 @@ export function buildMuseum() {
     addCollider(x, z, 0.6, 0.6);
   });
   box(4, 0.3, 2.6, 8, 3.65, 11.1, MARBLE);
+
+  // A négy szoba
+  ROOMS.forEach((r) => {
+    box(r.w, 0.2, r.d, r.x, -0.05, r.z, r.floorColor);        // padló
+    box(r.roof[2], 0.3, r.roof[3], r.roof[0], WH + 0.15, r.roof[1], 0x7a3b2e); // tető
+    r.walls.forEach((w) => wall(...w, r.wallColor));          // falak
+    box(r.door[2], 1.2, r.door[3], r.door[0], WH - 0.6, r.door[1], r.wallColor); // ajtó feletti rész
+    chandelier(r.x, r.z, 0.7);
+    const along = r.step[0] !== 0;                            // a tárgysor x irányú-e
+    const back = (along ? Math.sign(r.at[1]) : Math.sign(r.at[0])) * 21.75;   // a hátsó fal helye
+    [-3, 3].forEach((o) => {                                  // két festmény a hátsó falon
+      const fx = along ? o : back, fz = along ? back : o;
+      box(along ? 2.2 : 0.1, 1.7, along ? 0.1 : 2.2, fx, 2.6, fz, GOLD);
+      box(along ? 1.8 : 0.14, 1.3, along ? 0.14 : 1.8, fx, 2.6, fz, 0x2f3b4f);
+    });
+    sign(r.label, 3.5, r.sign[0], 4.4, r.sign[1], r.sign[2]); // felirat
+  });
 }
