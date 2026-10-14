@@ -46,4 +46,29 @@ export const OWNERS = [
       ],
     },
   },
+  {
+    name: "Gál Péter", role: "Scrum Master / Projektkoordinátor", from: 8, to: 16,
+    rooms: {
+      intro: [{ name: "Gál Péter", shape: "cube", color: R, text: "Gál Péter vagyok, a csapat Scrum Mastere." }],
+      past: [
+        { name: "Sakk", shape: "chess", color: 0xf2f2f2, text: "Általános iskolában 6 évig sakkoztam." },
+        { name: "Tankönyvek", shape: "book", color: 0x2a5ae8, text: "Az elmúlt 11 évet iskolában töltöttem." },
+      ],
+      hobby: [
+        { name: "Foci", shape: "ball", color: 0xf2f2f2, text: "A foci végigkísérte az életem nagy részét, már 11 szezon van mögöttem." },
+        { name: "Videójáték", shape: "controller", color: 0x222222, text: "Imádok játszani, a videójátékok a szenvedélyem." },
+        { name: "Hot Wheels", shape: "car", color: R, text: "Kezdő Hot Wheels gyűjtő vagyok." },
+        { name: "LEGO", shape: "lego", color: 0xf2c12a, text: "LEGO gyűjtő vagyok." },
+      ],
+      future: [
+        { name: "Programozó", shape: "monitor", color: 0x222222, text: "A jövőben mindenképp informatikával szeretnék foglalkozni, lehetőleg programozóként." },
+        { name: "Világutazás", shape: "globe", color: 0x2a8ae8, text: "Szeretném bejárni a világot és rengeteget utazni." },
+      ],
+      gift: [
+        { name: "Képeslapok", shape: "card", color: 0x2aa84a, text: "A bejárt helyszíneimre utalnak." },
+        { name: "Focimeccs jegyek", shape: "card", color: R, text: "A focira utalnak." },
+        { name: "Repülőjegy", shape: "plane", color: 0xf2f2f2, text: "Még sokféle helyre fogok utazni." },
+      ],
+    },
+  },
 ];
