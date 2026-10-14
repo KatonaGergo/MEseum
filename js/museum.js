@@ -131,4 +131,15 @@ export function buildMuseum() {
   const rug = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 0.02, 24), mat(0x7a1f2b));   // bordó szőnyeg
   rug.position.set(0, 0.06, 0);
   world.add(rug);
+
+  // Bejárat: áthidaló és "MEseum" felirat a bejárat felett kívül
+  box(2.6, 1.2, T, 8, WH - 0.6, 10, HALL);
+  sign('MEseum', 2.6, 8, 4.4, 10.22, 0);
+  [[6.4, 11.8], [9.6, 11.8]].forEach(([x, z]) => {     // tornác: két oszlop és egy tető
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 3.5, 8), mat(MARBLE));
+    c.position.set(x, 1.75, z);
+    world.add(c);
+    addCollider(x, z, 0.6, 0.6);
+  });
+  box(4, 0.3, 2.6, 8, 3.65, 11.1, MARBLE);
 }
