@@ -114,4 +114,21 @@ export function buildMuseum() {
     world.add(trunk, top);
     addCollider(x, z, 0.8, 0.8);
   });
+
+  // Csarnok: padló, tető, falak, oszlopok
+  box(20, 0.2, 20, 0, -0.05, 0, checkerFloor());
+  box(20.4, 0.3, 20.4, 0, WH + 0.15, 0, 0x7a3b2e);
+  HALL_WALLS.forEach((w) => wall(...w, HALL));
+  [[-5, -5], [5, -5], [-5, 5], [5, 5]].forEach(([x, z]) => {
+    const column = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, WH, 8), mat(MARBLE));
+    column.position.set(x, WH / 2, z);
+    world.add(column);
+    box(1, 0.3, 1, x, 0.15, z, MARBLE);          // oszloptalp
+    box(1, 0.3, 1, x, WH - 0.15, z, MARBLE);     // oszlopfő
+    addCollider(x, z, 1, 1);
+  });
+  chandelier(0, 0, 1.2);
+  const rug = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 0.02, 24), mat(0x7a1f2b));   // bordó szőnyeg
+  rug.position.set(0, 0.06, 0);
+  world.add(rug);
 }
