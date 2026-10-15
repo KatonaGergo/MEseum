@@ -67,3 +67,34 @@ function buildExhibits(ownerIndex) {
   $('owner').textContent = `${owner.name} – ${owner.role}`;
   $('ownerSel').value = ownerIndex;
 }
+
+// ================= 3. NAPSZAK =================
+let hour = 12;                                     // játékbeli óra (0–24)
+let secPerHour = 60;                               // hány valós másodperc egy játékbeli óra
+const NIGHT = new THREE.Color(0x0a0a1e);
+const DAY = new THREE.Color(0xbfe3ff);
+
+function updateTime() {
+  // angle: déli 12 órakor a nap a legmagasabban van, éjfélkor a legalacsonyabban.
+  const angle = ((hour - 6) / 24) * Math.PI * 2;
+  const daylight = 0.5 + 0.5 * Math.sin(angle);    // 0 = éjszaka, 1 = dél
+  scene.background.copy(NIGHT).lerp(DAY, daylight);
+  scene.fog.color.copy(scene.background);
+  hemi.intensity = 0.5 + 0.9 * daylight;
+  sun.intensity = 2.2 * daylight;
+  sun.position.set(Math.cos(angle) * 20, 15, 8);
+  sunBall.position.set(Math.cos(angle) * 120, Math.sin(angle) * 120, -40);
+
+  const h = Math.floor(hour), m = Math.floor((hour % 1) * 60);
+  $('clock').textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+
+  // Melyik tulajdonos időszakában vagyunk? Ha változott, cseréljük a kiállítást.
+  const owner = OWNERS.findIndex((o) => hour >= o.from && hour < o.to);
+  if (owner !== currentOwner) buildExhibits(owner);
+}
+function jumpToOwner(i) { hour = OWNERS[i].from + 1; updateTime(); }
+function setSpeed(value) {
+  secPerHour = Math.min(600, Math.max(0.5, value));
+  $('speed').value = Math.min(120, secPerHour);
+  $('spV').textContent = +secPerHour.toFixed(1);
+}
