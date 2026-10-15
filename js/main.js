@@ -98,3 +98,29 @@ function setSpeed(value) {
   $('speed').value = Math.min(120, secPerHour);
   $('spV').textContent = +secPerHour.toFixed(1);
 }
+
+// ================= 4. IRÁNYÍTÁS =================
+const keys = {};                                   // melyik billentyű van lenyomva
+let yaw = 0, pitch = 0;                            // balra-jobbra és fel-le nézés (radián)
+let locked = false;                                // be van-e zárva az egér a játékba
+const pos = new THREE.Vector3(8, 1.7, 34);         // kezdőpont: a múzeum előtt, kint
+
+addEventListener('keydown', (e) => {
+  keys[e.code] = true;
+  if (e.code === 'Digit1' || e.code === 'Digit2' || e.code === 'Digit3') jumpToOwner(+e.code.slice(5) - 1);
+  if (e.code === 'Equal' || e.code === 'NumpadAdd') setSpeed(secPerHour / 1.5);        // + : gyorsabb idő
+  if (e.code === 'Minus' || e.code === 'NumpadSubtract') setSpeed(secPerHour * 1.5);   // - : lassabb idő
+});
+addEventListener('keyup', (e) => (keys[e.code] = false));
+addEventListener('mousemove', (e) => {
+  if (!locked) return;
+  yaw -= e.movementX * 0.0022;
+  pitch = Math.max(-1.4, Math.min(1.4, pitch - e.movementY * 0.0022));
+});
+$('pause').addEventListener('click', (e) => {
+  if (e.target.id === 'go' || e.target.id === 'pause') canvas.requestPointerLock();
+});
+document.addEventListener('pointerlockchange', () => {
+  locked = document.pointerLockElement === canvas;
+  $('pause').hidden = locked;                      // menü látszik, ha nincs bezárva az egér
+});
