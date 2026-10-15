@@ -71,4 +71,25 @@ export const OWNERS = [
       ],
     },
   },
+  {
+    name: "Katona Gergő", role: "Tesztelő / UI", from: 16, to: 24,
+    rooms: {
+      intro: [{ name: "Katona Gergő", shape: "cube", color: R, text: "Katona Gergő vagyok, a csapat tesztelője (QA / UI)." }],
+      past: [{ name: "Röplabda", shape: "ball", color: 0xf2f2f2, text: "Régen röplabdáztam, de ma már nem kedvelem annyira ezt a sportot." }],
+      hobby: [
+        { name: "Foci", shape: "ball", color: 0xf2f2f2, text: "Szeretek focizni." },
+        { name: "Zongora", shape: "piano", color: 0x111111, text: "Zongorázni tanulok." },
+        { name: "Ugrálókötél", shape: "rope", color: R, text: "Szeretek ugrálókötelezni." },
+        { name: "Kalisztenika és súlyzós edzés", shape: "dumbbell", color: 0x333333, text: "Kalisztenikázom és súlyzós edzést végzek." },
+        { name: "Matek, fizika, kémia", shape: "flask", color: 0x2aa84a, text: "Szeretem megismerni a matematika, a fizika és a kémia érdekesebb részeit." },
+        { name: "Gaming", shape: "monitor", color: 0x222222, text: "Szeretek játszani, főleg esport címekkel." },
+      ],
+      future: [
+        { name: "Érettségi", shape: "book", color: R, text: "Emelt matek érettségi; ha az egyetemi szak kéri, emelt fizika." },
+        { name: "Nyelvvizsgák", shape: "book", color: 0x2a5ae8, text: "Német és angol nyelvvizsga." },
+        { name: "Egyetem", shape: "cap", color: 0x111111, text: "Egyetem: DE vagy SZTE." },
+      ],
+      gift: [{ name: "Könyv", shape: "book", color: 0xf2c12a, text: "Egy fizika- vagy matekkönyv lenne a legjobb ajándék." }],
+    },
+  },
 ];
