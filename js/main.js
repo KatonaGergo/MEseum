@@ -124,3 +124,22 @@ document.addEventListener('pointerlockchange', () => {
   locked = document.pointerLockElement === canvas;
   $('pause').hidden = locked;                      // menü látszik, ha nincs bezárva az egér
 });
+
+// Szabad-e a (x, z) pont? Nem, ha belelógna egy falba/talapzatba (0.4 m a játékos sugara).
+function isFree(x, z) {
+  const r = 0.4;
+  if (Math.abs(x) > 60 || Math.abs(z) > 60) return false;           // a világ széle
+  return ![...colliders, ...exhibitColliders].some(
+    (c) => x > c.x0 - r && x < c.x1 + r && z > c.z0 - r && z < c.z1 + r);
+}
+function movePlayer(dt) {
+  const forward = (keys.KeyW ? 1 : 0) - (keys.KeyS ? 1 : 0);
+  const right = (keys.KeyD ? 1 : 0) - (keys.KeyA ? 1 : 0);
+  const length = Math.hypot(forward, right) || 1;                   // átlósan se legyen gyorsabb
+  const speed = keys.ShiftLeft || keys.ShiftRight ? 7 : 4;
+  const step = (speed * dt) / length;
+  const dx = (-Math.sin(yaw) * forward + Math.cos(yaw) * right) * step;
+  const dz = (-Math.cos(yaw) * forward - Math.sin(yaw) * right) * step;
+  if (isFree(pos.x + dx, pos.z)) pos.x += dx;      // x és z irányt külön vizsgáljuk,
+  if (isFree(pos.x, pos.z + dz)) pos.z += dz;      // így a fal mentén tudunk csúszni
+}
