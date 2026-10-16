@@ -143,3 +143,23 @@ function movePlayer(dt) {
   if (isFree(pos.x + dx, pos.z)) pos.x += dx;      // x és z irányt külön vizsgáljuk,
   if (isFree(pos.x, pos.z + dz)) pos.z += dz;      // így a fal mentén tudunk csúszni
 }
+
+// ================= 5. TÁRGYRA NÉZÉS =================
+const raycaster = new THREE.Raycaster();
+raycaster.far = 4.5;                               // legfeljebb ennyi méterről
+function lookAtExhibit() {
+  raycaster.setFromCamera({ x: 0, y: 0 }, camera); // sugár a képernyő közepéből
+  const hit = raycaster.intersectObjects(exhibits.children, true)[0];
+  let target = hit ? hit.object : null;
+  while (target && !target.userData.item) target = target.parent;   // felmegyünk a tárgy csoportjáig
+
+  if (target === hovered) return;
+  if (hovered) hovered.traverse((o) => o.material?.emissive?.setHex(0x000000));   // régi kiemelés le
+  hovered = target;
+  $('info').hidden = !hovered;
+  if (hovered) {
+    hovered.traverse((o) => o.material?.emissive?.setHex(0x444444));              // új kiemelés fel
+    $('iTitle').textContent = hovered.userData.item.name;
+    $('iText').textContent = hovered.userData.item.text;
+  }
+}
