@@ -25,3 +25,9 @@ Modellek (`shape`): ball, book, piano, dumbbell, rope, monitor, cap, flask, cube
 | `index.html`, `css/style.css` (HUD, szünet menü, info panel), tesztelés | UI/UX + QA | Katona Gergő |
 | `docs/`, Trello, stakeholder-térkép, `README.md` | Scrum Master | Gál Péter |
 | `js/data.js` | mindenki a saját blokkjáért | |
+
+## Kódszerkezet (kezdőknek)
+- `js/museum.js`: az épület adatokból épül (ROOMS, HALL_WALLS listák). Új fal vagy szoba = új sor a listában.
+- `js/models.js`: a tárgyak egyszerű dobozokból, hengerekből, gömbökből állnak.
+- `js/main.js`: 6 számozott rész (jelenet, kiállítás, napszak, irányítás, tárgyra nézés, főciklus).
+- A játékos kint, a múzeum előtt kezd, a bejárat a déli oldalon, a MEseum felirat alatt van.
