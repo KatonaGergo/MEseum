@@ -163,3 +163,25 @@ function lookAtExhibit() {
     $('iText').textContent = hovered.userData.item.text;
   }
 }
+
+// ================= 6. INDÍTÁS ÉS FŐCIKLUS =================
+$('team').textContent = TEAM_NAME;
+OWNERS.forEach((o, i) => $('ownerSel').add(new Option(`${o.name} (${o.from}–${o.to} óra)`, i)));
+$('ownerSel').onchange = (e) => jumpToOwner(+e.target.value);
+$('speed').oninput = (e) => setSpeed(+e.target.value);
+updateTime();
+
+let last = performance.now();
+renderer.setAnimationLoop((now) => {               // ez fut minden képkockánál
+  const dt = Math.min(0.05, (now - last) / 1000);  // az előző képkocka óta eltelt idő (mp)
+  last = now;
+  if (locked) {
+    hour = (hour + dt / secPerHour) % 24;
+    movePlayer(dt);
+    updateTime();
+    lookAtExhibit();
+  }
+  camera.position.copy(pos);
+  camera.rotation.set(pitch, yaw, 0);
+  renderer.render(scene, camera);
+});
